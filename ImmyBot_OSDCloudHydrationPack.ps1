@@ -99,7 +99,7 @@ if ( "OSD" -notin $(Get-InstalledModule).Name ){
 }
 Import-Module OSD -Force
 
-if (-not [String]::IsNullOrEmpty("$WorkspaceRootPath")) {
+if ([String]::IsNullOrEmpty("$WorkspaceRootPath")) {
 	$WorkspaceRootPath = "C:\"
 }
 
@@ -116,9 +116,9 @@ Write-Host "OSDcloud workspace was set to OSDCloud_Prod"
 $UserDefinedParameters = @{}
 
 switch ($true) {
-	(-not [String]::IsNullOrEmpty("$WallpaperPath")) { $UserDefinedParameters["Wallpaper"]   = $WallpaperPath }
-	(-not [String]::IsNullOrEmpty("$Brand"))         { $UserDefinedParameters["Brand"]       = $Brand         }
-	(-not [String]::IsNullOrEmpty("$WifiProfile"))   { $UserDefinedParameters["WifiProfile"] = $WifiProfile   }
+	([String]::IsNullOrEmpty("$WallpaperPath")) { $UserDefinedParameters["Wallpaper"]   = $WallpaperPath }
+	([String]::IsNullOrEmpty("$Brand"))         { $UserDefinedParameters["Brand"]       = $Brand         }
+	([String]::IsNullOrEmpty("$WifiProfile"))   { $UserDefinedParameters["WifiProfile"] = $WifiProfile   }
 }
 
 Write-Host -ForegroundColor Yellow "Appending Parameters => Wallpaper:$($UserDefinedParameters.Wallpaper) Brand:$($UserDefinedParameters.Brand) WifiProfile:$($UserDefinedParameters.WifiProfile)"
