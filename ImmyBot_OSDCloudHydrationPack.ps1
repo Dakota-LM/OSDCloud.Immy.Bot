@@ -116,9 +116,9 @@ Write-Host "OSDcloud workspace was set to OSDCloud_Prod"
 $UserDefinedParameters = @{}
 
 switch ($true) {
-	([String]::IsNullOrEmpty("$WallpaperPath")) { $UserDefinedParameters["Wallpaper"]   = $WallpaperPath }
-	([String]::IsNullOrEmpty("$Brand"))         { $UserDefinedParameters["Brand"]       = $Brand         }
-	([String]::IsNullOrEmpty("$WifiProfile"))   { $UserDefinedParameters["WifiProfile"] = $WifiProfile   }
+	(-not [String]::IsNullOrEmpty("$WallpaperPath")) { $UserDefinedParameters["Wallpaper"]   = $WallpaperPath }
+	(-not [String]::IsNullOrEmpty("$Brand"))         { $UserDefinedParameters["Brand"]       = $Brand         }
+	(-not [String]::IsNullOrEmpty("$WifiProfile"))   { $UserDefinedParameters["WifiProfile"] = $WifiProfile   }
 }
 
 Write-Host -ForegroundColor Yellow "Appending Parameters => Wallpaper:$($UserDefinedParameters.Wallpaper) Brand:$($UserDefinedParameters.Brand) WifiProfile:$($UserDefinedParameters.WifiProfile)"
