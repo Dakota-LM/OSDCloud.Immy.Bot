@@ -121,6 +121,8 @@ switch ($true) {
 	(-not [String]::IsNullOrEmpty("$WifiProfile"))   { $UserDefinedParameters["WifiProfile"] = $WifiProfile   }
 }
 
+Write-Host -ForegroundColor Yellow "Appending Parameters => Wallpaper:$($UserDefinedParameters.Wallpaper) Brand:$($UserDefinedParameters.Brand) WifiProfile:$($UserDefinedParameters.WifiProfile)"
+
 Edit-OSDCloudWinPE -CloudDriver Dell,HP,IntelNet,LenovoDock,Nutanix,Surface,USB,WiFi -StartOSDCloudGUI -WirelessConnect @UserDefinedParameters
 #EndRegion BuildOSDCloud
 
