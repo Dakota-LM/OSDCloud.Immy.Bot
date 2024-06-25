@@ -133,7 +133,9 @@ New-Item -ItemType Directory -Path "$WorkspaceRootPath\OSDCloud\OSDCloud_Prod" -
 New-Item -ItemType Directory -Path "$WorkspaceRootPath\OSDCloud\OSDCloud_Prod\Automate" -Name "Provisioning" -Force
 
 [ValidateScript({. $FileValidationScriptBlock})]$PPKGFile = Read-Host "Please enter the path to your ImmyBot provisioning package"
-Copy-Item -Path $PPKGFile -Destination "$WorkspaceRootPath\OSDCloud\Automate\Provisioning" -Force
+Write-Host -ForegroundColor Yellow "Copying $PPKGFile to the provisioning directory in your OSDCloud workspace."
+Copy-Item -Path $PPKGFile -Destination "$WorkspaceRootPath\OSDCloud\OSDCloud_Dev\Automate\Provisioning" -Force | Out-Null
+Copy-Item -Path $PPKGFile -Destination "$WorkspaceRootPath\OSDCloud\OSDCloud_Prod\Automate\Provisioning" -Force | Out-Null
 #EndRegion Provisioning
 
 Write-Host -ForegroundColor Green "Hydration Is Complete For Your OSDCloud ImmyBot Environment!"
