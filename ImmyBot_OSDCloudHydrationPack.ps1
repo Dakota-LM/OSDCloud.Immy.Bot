@@ -100,17 +100,18 @@ if ( "OSD" -notin $(Get-InstalledModule).Name ){
 Import-Module OSD -Force
 
 if ([String]::IsNullOrEmpty("$WorkspaceRootPath")) {
+	Write-Host -Foreground Yellow "No workspace path entered, defaulting to 'C:\'."
 	$WorkspaceRootPath = "C:\"
 }
 
-New-Item -ItemType Directory -Path "$WorkspaceRootPath" -Name "OSDCloud" -Force
+New-Item -ItemType Directory -Path "$WorkspaceRootPath" -Name "OSDCloud" -Force | Out-Null
 Set-Location -Path "$WorkspaceRootPath\OSDCloud" | Out-Null
 
 New-OSDCloudTemplate -Name "WinRE" -SetAllIntl en-us -WinRE | Out-Null
 New-OSDCloudWorkspace "OSDCloud_Dev"  | Out-Null
 New-OSDCloudWorkspace "OSDCloud_Prod" | Out-Null
 
-Set-OSDCloudWorkSpace -WorkspacePath "$WorkspaceRootPath\OSDCloud\OSDCloud_Prod" | Out-Null
+Set-OSDCloudWorkSpace -WorkspacePath "$WorkspaceRootPath`OSDCloud\OSDCloud_Prod" | Out-Null
 Write-Host "OSDcloud workspace was set to OSDCloud_Prod"
 
 $UserDefinedParameters = @{}
@@ -122,20 +123,19 @@ switch ($true) {
 }
 
 Write-Host -ForegroundColor Yellow "Appending Parameters => Wallpaper:$($UserDefinedParameters.Wallpaper) Brand:$($UserDefinedParameters.Brand) WifiProfile:$($UserDefinedParameters.WifiProfile)"
-
 Edit-OSDCloudWinPE -CloudDriver Dell,HP,IntelNet,LenovoDock,Nutanix,Surface,USB,WiFi -StartOSDCloudGUI -WirelessConnect @UserDefinedParameters
 #EndRegion BuildOSDCloud
 
 #Region Provisioning
-New-Item -ItemType Directory -Path "$WorkspaceRootPath\OSDCloud\OSDCloud_Dev" -Name "Automate" -Force
-New-Item -ItemType Directory -Path "$WorkspaceRootPath\OSDCloud\OSDCloud_Dev\Automate" -Name "Provisioning" -Force
-New-Item -ItemType Directory -Path "$WorkspaceRootPath\OSDCloud\OSDCloud_Prod" -Name "Automate" -Force
-New-Item -ItemType Directory -Path "$WorkspaceRootPath\OSDCloud\OSDCloud_Prod\Automate" -Name "Provisioning" -Force
+New-Item -ItemType Directory -Path "$WorkspaceRootPath`OSDCloud\OSDCloud_Dev" -Name "Automate" -Force | Out-Null
+New-Item -ItemType Directory -Path "$WorkspaceRootPath`OSDCloud\OSDCloud_Dev\Automate" -Name "Provisioning" -Force | Out-Null
+New-Item -ItemType Directory -Path "$WorkspaceRootPath`OSDCloud\OSDCloud_Prod" -Name "Automate" -Force | Out-Null
+New-Item -ItemType Directory -Path "$WorkspaceRootPath`OSDCloud\OSDCloud_Prod\Automate" -Name "Provisioning" -Force | Out-Null
 
 [ValidateScript({. $FileValidationScriptBlock})]$PPKGFile = Read-Host "Please enter the path to your ImmyBot provisioning package"
 Write-Host -ForegroundColor Yellow "Copying $PPKGFile to the provisioning directory in your OSDCloud workspace."
-Copy-Item -Path $PPKGFile -Destination "$WorkspaceRootPath\OSDCloud\OSDCloud_Dev\Automate\Provisioning" -Force | Out-Null
-Copy-Item -Path $PPKGFile -Destination "$WorkspaceRootPath\OSDCloud\OSDCloud_Prod\Automate\Provisioning" -Force | Out-Null
+Copy-Item -Path $PPKGFile -Destination "$WorkspaceRootPath`OSDCloud\OSDCloud_Dev\Automate\Provisioning" -Force | Out-Null
+Copy-Item -Path $PPKGFile -Destination "$WorkspaceRootPath`OSDCloud\OSDCloud_Prod\Automate\Provisioning" -Force | Out-Null
 #EndRegion Provisioning
 
 Write-Host -ForegroundColor Green "Hydration Is Complete For Your OSDCloud ImmyBot Environment!"
