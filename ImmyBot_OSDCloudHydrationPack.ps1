@@ -127,8 +127,10 @@ Edit-OSDCloudWinPE -CloudDriver Dell,HP,IntelNet,LenovoDock,Nutanix,Surface,USB,
 #EndRegion BuildOSDCloud
 
 #Region Provisioning
-New-Item -ItemType Directory -Path "$WorkspaceRootPath\OSDCloud" -Name "Automate" -Force
-New-Item -ItemType Directory -Path "$WorkspaceRootPath\OSDCloud\Automate" -Name "Provisioning" -Force
+New-Item -ItemType Directory -Path "$WorkspaceRootPath\OSDCloud\OSDCloud_Dev" -Name "Automate" -Force
+New-Item -ItemType Directory -Path "$WorkspaceRootPath\OSDCloud\OSDCloud_Dev\Automate" -Name "Provisioning" -Force
+New-Item -ItemType Directory -Path "$WorkspaceRootPath\OSDCloud\OSDCloud_Prod" -Name "Automate" -Force
+New-Item -ItemType Directory -Path "$WorkspaceRootPath\OSDCloud\OSDCloud_Prod\Automate" -Name "Provisioning" -Force
 
 [ValidateScript({. $FileValidationScriptBlock})]$PPKGFile = Read-Host "Please enter the path to your ImmyBot provisioning package"
 Copy-Item -Path $PPKGFile -Destination "$WorkspaceRootPath\OSDCloud\Automate\Provisioning" -Force
