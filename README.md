@@ -1,4 +1,4 @@
-# OSDCloud + Immy.Bot
+# OSDCloud + ImmyBot
 Scripts to bring together these two great technologies.
 
 ```mermaid
