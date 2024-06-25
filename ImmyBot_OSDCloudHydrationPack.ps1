@@ -30,9 +30,9 @@ Which version would you like to install (You will need to install Insider's edit
 		'2' { $ADKURL = "https://download.microsoft.com/download/6/1/f/61fcd094-9641-439c-adb5-6e9fe2760856/adk/adksetup.exe" }
 	}
 	$ADKFile = "$($env:windir)\TEMP\adksetup.exe"
-	$ADKInstallFile = Invoke-WebRequest -Uri "$ADKURL" -Passthru -Outfile "$ADKFile"
+	Invoke-WebRequest -Uri "$ADKURL" -Passthru -Outfile "$ADKFile"
 	
-	$Process = Start-Process $ADKInstallFile -ArgumentList "/quiet /norestart /features OptionId.DeploymentTools" -Passthru -Wait
+	$Process = Start-Process $ADKFile -ArgumentList "/quiet /norestart /features OptionId.DeploymentTools" -Passthru -Wait
 	if ($Process.ExitCode -eq 0){
 		Write-Host -Foreground Yellow "Windows ADK successfully installed."
 	} else {
@@ -56,9 +56,9 @@ The version should match your ADK installation (You will need to install Insider
 		'2' { $ADKWinPEURL = "https://download.microsoft.com/download/c/6/8/c68972f8-9148-4240-818e-7288e1e54256/adkwinpeaddons/adkwinpesetup.exe" }
 	}
 	$ADKWinPEFile = "$($env:windir)\TEMP\adkwinpesetup.exe"
-	$ADKWinPEInstallFile = Invoke-WebRequest -Uri "$ADKWinPEURL" -Passthru -Outfile "$ADKWinPEFile"
+	Invoke-WebRequest -Uri "$ADKWinPEURL" -Passthru -Outfile "$ADKWinPEFile"
 	
-	$Process = Start-Process $ADKWinPEInstallFile -ArgumentList "/quiet /norestart" -Passthru -Wait
+	$Process = Start-Process $ADKWinPEFile -ArgumentList "/quiet /norestart" -Passthru -Wait
 	if ($Process.ExitCode -eq 0){
 		Write-Host -Foreground Yellow "Windows ADK WinPE Plugin successfully installed."
 	} else {
